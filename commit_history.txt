@@ -20,3 +20,4 @@ Commit 18 at 2026-07-05T13:53:23 - docs: improve schema definitions for goal str
 Commit 19 at 2026-07-05T17:38:13 - style: make responsive layout refinements for mobile screens (batch update 19)
 Commit 20 at 2026-07-05T18:54:35 - chore: update devDependencies in package.json (batch update 20)
 Commit 21 at 2026-07-05T19:06:53 - style: refine dashboard graph tooltip styling (batch update 21)
+Commit 22 at 2026-07-06T01:11:42 - refactor: clean up dashboard component hierarchy (batch update 22)
