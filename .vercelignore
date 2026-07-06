@@ -1,0 +1,9 @@
+node_modules
+.git
+.turbo
+contracts
+demo-assets
+apps/web/node_modules
+apps/web/dist
+packages/shared/node_modules
+packages/shared/dist

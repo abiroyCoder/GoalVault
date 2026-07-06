@@ -1,0 +1,129 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─── GoalVault Design System ───────────────────────────────────────────────
+   Light-only. Editorial. Warm off-white + forest green accent.
+   No glassmorphism, no blue, no gradients.
+   ─────────────────────────────────────────────────────────────────────────── */
+
+:root {
+  --bg:        244 241 234;    /* warm soft sand / cream background */
+  --fg:        28 28 26;       /* charcoal ink */
+  --muted:     115 110 100;    /* warm stone gray */
+  --card:      250 248 244;    /* slightly lighter cream for card containers */
+  --border:    220 215 202;    /* warm sand border */
+  --accent:    26 107 60;      /* forest green */
+  --accent-fg: 255 255 255;    /* white on green */
+  --danger:    185 28 28;      /* muted red */
+  --success:   21 128 61;      /* green success */
+}
+
+html,
+body,
+#root {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  background: rgb(var(--bg));
+  color: rgb(var(--fg));
+  font-family: "DM Sans", system-ui, sans-serif;
+  transition: background-color 200ms ease, color 200ms ease;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+::selection {
+  background: rgb(var(--accent));
+  color: rgb(var(--accent-fg));
+}
+
+/* ── Page shell: clean warm bg, no noise, no gradient blobs ── */
+.page-shell {
+  background: rgb(var(--bg));
+}
+
+/* ── Sidebar: solid white with right hairline border ── */
+.sidebar-panel {
+  background: rgb(var(--card));
+  border-right: 1px solid rgb(var(--border));
+}
+
+/* ── Cards: clean white, subtle shadow, no blur ── */
+.card-base {
+  background: rgb(var(--card));
+  border: 1px solid rgb(var(--border));
+  border-radius: 0.75rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
+  transition: box-shadow 180ms ease, border-color 180ms ease;
+}
+
+.card-hover:hover {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.10);
+  border-color: rgb(var(--accent) / 0.3);
+}
+
+/* ── Typography ── */
+.heading {
+  font-family: "DM Serif Display", Georgia, serif;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+}
+
+.text-label {
+  font-family: "DM Sans", system-ui, sans-serif;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgb(var(--muted));
+}
+
+/* ── Scrollbar ── */
+.safe-scrollbar::-webkit-scrollbar {
+  width: 6px;
+}
+.safe-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+.safe-scrollbar::-webkit-scrollbar-thumb {
+  background: rgb(var(--border));
+  border-radius: 9999px;
+}
+
+/* ── Status dots ── */
+.dot-live {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: rgb(var(--success));
+}
+
+/* ── Stat accent border ── */
+.stat-card-accent {
+  border-left: 3px solid rgb(var(--accent));
+}
+
+/* ── Remove legacy glass / noise-grid ── */
+.glass,
+.noise-grid {
+  background: rgb(var(--card)) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+/* ── Shadow tokens ── */
+.shadow-card {
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.04);
+}
+
+.shadow-premium {
+  box-shadow: 0 2px 8px rgba(26, 107, 60, 0.18);
+}
