@@ -159,6 +159,23 @@ Manages staker escrows and verification lifecycles.
 
 ---
 
+## Screenshots
+
+### Application UI Overview
+![Landing Page](./subassets/ui1.png)
+![Dashboard Overview](./subassets/ui2.png)
+![Create Goal Form](./subassets/ui3.png)
+![Active Goals Grid](./subassets/ui4.png)
+
+### Mobile Responsive Design
+![Mobile App Shell](./subassets/mobui.png)
+
+### CI/CD Pipeline Build
+![CI Pipeline Action](./subassets/cicd.png)
+
+
+---
+
 ## Production Hardening (Level 4)
 
 The following security updates and frontend enhancements were implemented for production stability:
@@ -318,16 +335,3 @@ npm run dev
 
 ---
 
-## Screenshots
-
-### Application UI Overview
-![Landing Page](./subassets/ui1.png)
-![Dashboard Overview](./subassets/ui2.png)
-![Create Goal Form](./subassets/ui3.png)
-![Active Goals Grid](./subassets/ui4.png)
-
-### Mobile Responsive Design
-![Mobile App Shell](./subassets/mobui.png)
-
-### CI/CD Pipeline Build
-![CI Pipeline Action](./subassets/cicd.png)
