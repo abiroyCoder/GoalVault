@@ -6,7 +6,7 @@
 
 *Lock XLM on goals. Prove it. Get rewarded. Forfeit — fund the community.*
 
-[![Live Demo](https://img.shields.io/badge/Live_Demo-goaldvault.netlify.app-1A6B3C?style=for-the-badge&logo=netlify)](https://skill-sprint-stellar.netlify.app/)
+[![Live Demo](https://img.shields.io/badge/Live_Demo-goal--vault--stellar.netlify.app-1A6B3C?style=for-the-badge&logo=netlify)](https://goal-vault-stellar.netlify.app/)
 [![Network](https://img.shields.io/badge/Network-Stellar_Testnet-1A6B3C?style=for-the-badge&logo=stellar)](https://stellar.expert/explorer/testnet)
 [![Built for RiseIn](https://img.shields.io/badge/Built_for-RiseIn_Level_3-f59e0b?style=for-the-badge)](https://www.risein.com/)
 [![License](https://img.shields.io/badge/License-MIT-stone?style=for-the-badge)](LICENSE)
