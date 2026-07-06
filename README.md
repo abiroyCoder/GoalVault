@@ -235,4 +235,5 @@ VITE_NETWORK_PASSPHRASE=Test SDF Network ; September 2015
 
 **Abi Roy** — [@abiroyCoder](https://github.com/abiroyCoder) (abiroykarmakar543@gmail.com)
 
-*Built for the [RiseIn Stellar dApp Development Program](https://www.risein.com/) — Level 3*
+* [Project Demo Video](https://drive.google.com/file/d/1L9d4By26mWesU7RED2CIvGwVyAcwOqP9/view?usp=sharing)
+* Built for the [RiseIn Stellar dApp Development Program](https://www.risein.com/) — Level 3
