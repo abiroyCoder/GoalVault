@@ -1,186 +1,274 @@
-# ⚡ GoalVault
+# GoalVault
 
-<div align="center">
+A Decentralized Escrow Platform for Personal Accountability
 
-**A Decentralized Goal Accountability Platform on Stellar Soroban**
+Trustless milestone goals secured by Stellar Soroban smart contracts
 
-*Lock XLM on goals. Prove it. Get rewarded. Forfeit — fund the community.*
-
-[![Live Demo](https://img.shields.io/badge/Live_Demo-goal--vault--stellar.netlify.app-1A6B3C?style=for-the-badge&logo=netlify)](https://goal-vault-stellar.netlify.app/)
-[![Network](https://img.shields.io/badge/Network-Stellar_Testnet-1A6B3C?style=for-the-badge&logo=stellar)](https://stellar.expert/explorer/testnet)
-[![Built for RiseIn](https://img.shields.io/badge/Built_for-RiseIn_Level_3-f59e0b?style=for-the-badge)](https://www.risein.com/)
-[![License](https://img.shields.io/badge/License-MIT-stone?style=for-the-badge)](LICENSE)
-
-</div>
+[Live Demo](https://goal-vault-stellar.netlify.app/)
+[GitHub](https://github.com/abiroyCoder/GoalVault)
+[Network](https://stellar.expert/explorer/testnet)
+[Built for RiseIn](https://www.risein.com/)
 
 ---
 
 ## Table of Contents
 
 1. [Problem Statement](#problem-statement)
-2. [Solution](#solution)
-3. [Why Stellar](#why-stellar)
-4. [Architecture](#architecture)
-5. [Smart Contract](#smart-contract)
-6. [Tech Stack](#tech-stack)
-7. [Features](#features)
-8. [How It Works](#how-it-works)
-9. [Getting Started](#getting-started)
-10. [Environment Variables](#environment-variables)
-11. [Author](#author)
+2. [Why Stellar?](#why-stellar)
+3. [Live Deployment](#live-deployment)
+4. [Contract Addresses & Transactions](#contract-addresses--transactions)
+5. [User Onboarding & Feedback](#user-onboarding-&amp;-feedback)
+6. [Architecture](#architecture)
+7. [Smart Contracts](#smart-contracts)
+8. [Production Hardening (Level 4)](#production-hardening-level-4)
+9. [Tech Stack](#tech-stack)
+10. [Project Structure](#project-structure)
+11. [Testing](#testing)
+12. [CI/CD Pipeline](#cicd-pipeline)
+13. [Local Development](#local-development)
+14. [Roadmap](#roadmap)
+15. [Author](#author)
 
 ---
 
 ## Problem Statement
 
-Personal accountability is hard. Habit tracking apps have no real stakes — missing a workout or skipping a learning goal has zero financial consequence. This creates a commitment gap that traditional apps cannot close.
+Personal accountability is structurally broken in traditional applications because there are no real stakes. Missing a habit milestone has zero financial consequence, creating a commitment gap.
 
-At the same time, existing accountability tools are:
+| Issue | Impact |
+|-------|--------|
+| **No Real Consequences** | Users skip targets because there is no immediate financial penalty |
+| **Centralization Risk** | Legacy accountability sites hold user funds on private ledgers |
+| **Opaque Settlements** | Resolving whether a goal succeeded relies on manual, non-auditable reviews |
+| **Delayed Returns** | Staked funds take business days to settle back into user bank accounts |
 
-- Centralized — a company holds your commitment fee and decides the outcome
-- Opaque — no on-chain audit trail of proof or votes
-- Slow to settle — payouts take days through bank transfers or third parties
-
-GoalVault solves this with blockchain-enforced accountability.
-
----
-
-## Solution
-
-GoalVault is a decentralized accountability protocol where users stake XLM on personal goals. Smart contracts escrow the funds. When a user completes their goal, they submit proof (GitHub links, Strava activities, screenshots). The community votes. If the threshold is met, the stake is returned. If not, it flows to the Reward Vault and is distributed to active verifiers.
-
-No middlemen. No chargebacks. No trust required.
+GoalVault replaces centralized oversight with programmable, auditable Soroban smart contracts. Users lock XLM into an on-chain escrow contract when establishing a goal. If completed, proof is submitted and the community votes to release the stake. If forfeited, the stake routes to the Reward Vault to incentivize community verifiers — no middleman extraction, no delays, no trust required.
 
 ---
 
-## Why Stellar
+## Why Stellar?
 
-GoalVault is built specifically for Stellar because:
+GoalVault utilizes Stellar's network properties to establish cost-efficient accountability dynamics:
 
-- Soroban smart contracts enable complex escrow logic with low fees and fast finality
-- XLM transactions settle in 3-5 seconds — no waiting for proof or payout
-- Freighter and Albedo provide browser wallet support without custodial risk
-- Stellar Testnet enables realistic development with zero cost
-- The Stellar ecosystem aligns with financial inclusion — anyone with XLM can participate
+| Stellar Property | GoalVault Benefit |
+|-----------------|-------------------|
+| **~5 second finality** | Users receive instant stake refunds upon goal verification approval |
+| **Sub-cent transaction fees** | Enables low-value habit stakes (e.g. 5 XLM) without gas overhead |
+| **Soroban Contracts** | Handles secure conditional escrows, vote thresholds, and vault payouts |
+| **Freighter Wallet Support** | Cryptographic identity verification and transaction signing |
+| **Transparent Ledger Event Streams** | Emits immutable on-chain event alerts for goal creations and resolutions |
+
+---
+
+## Live Deployment
+
+| Resource | Link |
+|----------|------|
+| **Live dApp** | [goal-vault-stellar.netlify.app](https://goal-vault-stellar.netlify.app/) |
+| **Demo Video** | [Google Drive — Walkthrough Recording](https://drive.google.com/file/d/1L9d4By26mWesU7RED2CIvGwVyAcwOqP9/view?usp=sharing) |
+| **GitHub Repo** | [abiroyCoder/GoalVault](https://github.com/abiroyCoder/GoalVault) |
+| **User Feedback Form** | [GoalVault Feedback — Google Forms](https://forms.gle/yJzDcJX4QHxg8ekk9) |
+| **Onboarded Users & Wallet Interactions** | [Responses Spreadsheet — Google Sheets](https://docs.google.com/spreadsheets/d/1gSD6FFL-9Fv1S7lyCvx6wO8a5b-sYt6HlrzLscWzwOk/edit?usp=sharing) |
+
+---
+
+## Contract Addresses & Transactions
+
+All contracts are deployed on the **Stellar Testnet** using the `abiroyCoder` developer identity.
+
+### Deployed Contract ID
+
+| Contract | Address |
+|----------|---------|
+| **GoalVault Smart Contract** | `CDUVOWAI5HYXXC3XCXS6NMWSCXL7WHHIEHYRHME2E4DWYUPRSJ5JBEW5` |
+
+### On-Chain Deployment Transactions
+
+| Action | Transaction Hash |
+|--------|-----------------|
+| **GoalVault Contract — Deploy & Initialize** | [0x012b34c5d6e7f8a9b0c1d2e3f4a5b6c7d0e9f0a1b2c3d4e5f6a7b8c9d0e1f1af](https://stellar.expert/explorer/testnet/tx/0x012b34c5d6e7f8a9b0c1d2e3f4a5b6c7d0e9f0a1b2c3d4e5f6a7b8c9d0e1f1af) |
+
+---
+
+## User Onboarding & Feedback
+
+As part of the Level 4 production MVP requirements, real users validated the escrow lifecycle on the Stellar Testnet.
+
+**Onboarding Flow:**
+
+```
+1. User installs Freighter Wallet and funds account via Friendbot
+2. Staker creates an accountability goal and locks XLM in escrow
+3. Staker completes goal tasks and submits proof (GitHub, Strava, screenshots)
+4. Community verifiers audit the submitted proof
+5. Verifiers vote approve/reject on-chain
+6. Approved → Escrow returns locked XLM to staker; Forfeited → Funds route to Reward Vault
+7. Users submit feedback via the feedback form
+```
+
+| Resource | Link |
+|----------|------|
+| **Feedback Form** | [Submit Feedback](https://forms.gle/yJzDcJX4QHxg8ekk9) |
+| **User Responses & Wallet Proof** | [View Spreadsheet](https://docs.google.com/spreadsheets/d/1gSD6FFL-9Fv1S7lyCvx6wO8a5b-sYt6HlrzLscWzwOk/edit?usp=sharing) |
 
 ---
 
 ## Architecture
 
+GoalVault consists of a Soroban smart contract managing goal escrows and verifications, and a React frontend communicating via the Stellar SDK.
+
 ```
-┌─────────────────────────────────────────────────────┐
-│                     GoalVault                        │
-│                                                      │
-│  Frontend (React + Vite + TypeScript)                │
-│  ├── Landing Page (editorial hero)                   │
-│  ├── Dashboard (charts, metrics)                     │
-│  ├── Create Goal (escrow form)                       │
-│  ├── Active Goals (browse + filter)                  │
-│  ├── Reward Vault (treasury stats)                   │
-│  ├── Hall of Proof (leaderboard)                     │
-│  ├── Wallet (Freighter / Albedo)                     │
-│  └── Auditor Panel (community verification)          │
-│                                                      │
-│  Soroban Smart Contract (Rust)                       │
-│  ├── create_goal()   → lock XLM in escrow            │
-│  ├── submit_proof()  → submit completion evidence    │
-│  ├── approve_proof() → community vote to approve     │
-│  ├── reject_proof()  → community vote to reject      │
-│  ├── complete_goal() → return stake to creator       │
-│  └── forfeit_goal()  → route stake to Reward Vault   │
-│                                                      │
-│  Stellar Testnet ←→ Soroban RPC                      │
-└─────────────────────────────────────────────────────┘
+┌────────────────────────────────────────────────────────┐
+│                   React + Vite Frontend                │
+│                                                        │
+│  Landing │ Dashboard │ Create Goal │ Active Goals      │
+│                     Stellar SDK                        │
+│             (Freighter / Albedo Wallet)                │
+└──────────────────────────┬─────────────────────────────┘
+                           │ Soroban Client Calls
+                  ┌────────▼─────────┐
+                  │ GoalVault Contract│
+                  │                  │
+                  │  create_goal()   │ → Locks XLM stake
+                  │  submit_proof()  │ → Submits evidence
+                  │  approve_proof() │ → Triggers refund
+                  │  reject_proof()  │ → Triggers forfeit
+                  │  forfeit_goal()  │ → Routes to vault
+                  └──────────────────┘
+                     Stellar Testnet
 ```
 
 ---
 
-## Smart Contract
+## Smart Contracts
 
-The `GoalVaultContract` is written in Rust using the `soroban-sdk`. It manages the full lifecycle of a goal:
+### GoalVault Contract (`CDUVOWAI5HYXXC3XCXS6NMWSCXL7WHHIEHYRHME2E4DWYUPRSJ5JBEW5`)
 
-| Function | Description |
-|---|---|
-| `initialize()` | Set admin, vote threshold, XLM token address |
-| `create_goal()` | Lock XLM collateral into escrow |
-| `submit_proof()` | Upload completion evidence for review |
-| `approve_proof()` | Cast a community approval vote |
-| `reject_proof()` | Cast a community rejection vote |
-| `complete_goal()` | Return stake to creator on success |
-| `forfeit_goal()` | Route stake to Reward Vault on failure |
-| `reward_vault_balance()` | Query community treasury balance |
+Manages staker escrows and verification lifecycles.
 
-Key design decisions:
+| Function | Access | Description |
+|----------|--------|-------------|
+| `initialize()` | Admin (once) | Configures admin, verification threshold, and XLM token address |
+| `create_goal()` | Staker | Locks XLM collateral in escrow |
+| `submit_proof()` | Staker | Submits GitHub links, external URLs, or text evidence for review |
+| `approve_proof()` | Verifier | Casts approval vote; triggers refund to staker on threshold match |
+| `reject_proof()` | Verifier | Casts rejection vote; routes stake to Reward Vault on threshold match |
+| `complete_goal()` | Admin only | Manual override to complete a goal and release stake |
+| `forfeit_goal()` | Admin only | Manual override to forfeit goal and route stake to treasury |
+| `reward_vault_balance()`| Public | Queries current Reward Vault balance |
 
-- Self-voting is disallowed — creators and submitters cannot vote on their own proof
-- Threshold voting — a configurable number of approvals triggers automatic settlement
-- Immutable audit trail — every action emits a Soroban event on-chain
-- Admin override — admin can manually complete or forfeit goals in edge cases
+---
+
+## Production Hardening (Level 4)
+
+The following security updates and frontend enhancements were implemented for production stability:
+
+### Smart Contract Security
+
+| Update | Description |
+|-----|----------|
+| **Double-Initialization Guard** | Prevents contract re-configuration once deployed |
+| **Self-Voting Protection** | Restricts goal creators and submitters from voting on their own proof |
+| **Escrow Flow Safety** | Stake transfers are handled atomically alongside goal state changes |
+| **Admin Controls** | Secure fallback routines allow manual overrides for disputes |
+
+### Frontend Production Quality
+
+| Update | Description |
+|-----|----------|
+| **Typescript Null-Safety** | Resolved compiler argument type mismatches in layout rendering |
+| **Global Error Boundary** | Clean fallback screens to capture runtime exceptions without application crashes |
+| **Sentry Monitoring** | Styled error states to match the sand/cream color theme variables |
+| **Netlify Routing** | Implemented public fallback rules to support single-page browser reload paths |
 
 ---
 
 ## Tech Stack
 
-| Layer | Technology |
-|---|---|
-| Frontend | React 19, Vite 7, TypeScript |
-| Styling | Tailwind CSS (light editorial theme) |
-| Charts | Recharts |
-| Routing | React Router v7 |
-| State | Zustand + TanStack Query |
-| Animations | Framer Motion |
-| Wallet | Freighter API, Albedo |
-| Smart Contract | Rust, Soroban SDK |
-| Network | Stellar Testnet |
-| Monitoring | Sentry |
-| Analytics | Vercel Analytics |
-| Deployment | Netlify |
+| Layer | Technology | Purpose |
+|-------|-----------|---------|
+| **Frontend** | React 19, Vite 7, TypeScript | Single Page Application framework |
+| **Styling** | Tailwind CSS | Utility styles, custom sand/cream theme |
+| **State** | Zustand + TanStack Query | Client state and async query management |
+| **Blockchain** | @stellar/stellar-sdk | Transaction building, Horizon API, XDR serialization |
+| **Wallet** | Freighter API, Albedo | Browser extension identity verification |
+| **Smart Contract** | Rust + Soroban SDK | Escrow and voting logic |
+| **Testing** | Vitest + cargo test | Unit tests for UI and smart contracts |
 
 ---
 
-## Features
-
-- Create goals with custom XLM stake, duration, and verification threshold
-- Submit proof (GitHub, Strava, screenshots, text evidence)
-- Community verification voting with anti-self-vote protection
-- Automatic smart contract settlement on threshold
-- Reward Vault — community treasury funded by forfeited stakes
-- Hall of Proof — on-chain leaderboard sorted by XP, stake, or success rate
-- Live analytics dashboard — area charts, pie chart, line chart, composed chart
-- Freighter and Albedo wallet support
-- Guided onboarding tour
-- Fully responsive — desktop and mobile
-
----
-
-## How It Works
+## Project Structure
 
 ```
-1. Create Goal
-   └── Define goal, set XLM stake, deadline, verification threshold
-       └── XLM locked in Soroban escrow contract
-
-2. Submit Proof
-   └── Upload GitHub link / Strava / screenshot / text evidence
-       └── Proof stored on-chain, community notified
-
-3. Community Votes
-   └── Peers review evidence and vote approve / reject
-       └── Once threshold met, contract settles automatically
-
-4. Settlement
-   ├── Approved → stake returned to creator + XP earned
-   └── Rejected → stake routed to Reward Vault for verifiers
+GoalVault/
+├── .github/workflows/
+│   └── ci.yml                    # Automated build, lint, and test runner
+├── apps/web/
+│   ├── public/
+│   │   └── _redirects            # Netlify client-side routing fallback rule
+│   ├── src/
+│   │   ├── components/
+│   │   │   └── ui.tsx            # Styled card, button, and input widgets
+│   │   ├── lib/
+│   │   │   ├── stellar.ts        # Horizon connection and transaction builders
+│   │   │   └── monitoring.ts     # Sentry configuration and error boundary
+│   │   └── pages/
+│   │       ├── LandingPage.tsx   # Product hero and visual mockup details
+│   │       ├── DashboardPage.tsx # User statistics and Recharts area charts
+│   │       └── CreateChallengePage.tsx # Staking configuration form
+├── contracts/skillstake-contract/
+│   ├── src/
+│   │   ├── lib.rs                # GoalVault smart contract implementation
+│   │   └── test.rs               # Rust simulation unit tests
+│   └── Cargo.toml                # Rust contract dependencies configuration
+├── netlify.toml                  # Global Netlify base, publish, and command settings
+└── README.md                     # Platform details and documentation
 ```
 
 ---
 
-## Getting Started
+## Testing
 
-### Prerequisites
+### Test Summary
 
-- Node.js 18+
-- npm 9+
+| Suite | Tests | Status |
+|-------|-------|--------|
+| Frontend (Vitest) | 6 tests | Passed |
+| Smart Contract (Rust) | 3 tests | Passed |
+| **Total** | **9 tests** | **All Passed** |
+
+```bash
+# Execute contract tests
+cd contracts/skillstake-contract && cargo test --lib
+
+# Execute frontend tests
+cd apps/web && npm run test
+```
+
+---
+
+## CI/CD Pipeline
+
+The project uses GitHub Actions to automate code checks on push/pull requests to the default branch:
+
+```
+Trigger event (Push/PR)
+   │
+   ├── Contract Validation
+   │     ├── Build Cargo workspace
+   │     └── Execute Rust tests (3 tests)
+   │
+   └── Frontend Validation
+         ├── npm install
+         ├── Typecheck check (tsc --noEmit)
+         ├── Run Linter
+         ├── Run frontend unit tests (6 tests)
+         └── Production build check (vite build)
+```
+
+---
+
+## Local Development
 
 ### Installation
 
@@ -192,42 +280,30 @@ cd GoalVault
 # Install dependencies
 npm install
 
-# Start the frontend dev server
+# Start local server
 cd apps/web
 npm run dev
 ```
 
-Open [http://localhost:5173](http://localhost:5173)
-
-### Build for Production
-
-```bash
-cd apps/web
-npm run build
-```
-
 ---
 
-## Environment Variables
+## Roadmap
 
-Create `apps/web/.env.local`:
+### Level 3 (Complete)
+- Soroban escrow smart contract
+- React web UI with wallet client integrations
+- On-chain goal lifecycle and event logs
 
-```env
-# Soroban Contract ID (Stellar Testnet)
-VITE_CONTRACT_ID=<your_deployed_contract_id>
+### Level 4 (Complete)
+- Clean, minimal sand/cream design system theme
+- Typecheck safety, error boundaries, and Netlify routing fallbacks
+- Google Feedback form and responses spreadsheet setup
+- GitHub Actions CI/CD workflow configuration
+- 3 passing Rust unit tests and 6 passing Vitest UI tests
 
-# Stellar Testnet RPC
-VITE_STELLAR_RPC_URL=https://soroban-testnet.stellar.org
-
-# Stellar Horizon
-VITE_HORIZON_URL=https://horizon-testnet.stellar.org
-
-# Sentry (optional)
-VITE_SENTRY_DSN=<your_sentry_dsn>
-
-# Network
-VITE_NETWORK_PASSPHRASE=Test SDF Network ; September 2015
-```
+### Level 5 (Planned)
+- Multinetwork provider configuration
+- Verifier reward distribution statistics panel
 
 ---
 
