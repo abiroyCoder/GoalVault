@@ -173,7 +173,6 @@ Manages staker escrows and verification lifecycles.
 ### CI/CD Pipeline Build
 ![CI Pipeline Action](./subassets/cicd.png)
 
-
 ---
 
 ## Production Hardening (Level 4)
@@ -326,12 +325,12 @@ npm run dev
 
 ## Author
 
-**Abi Roy** — [@abiroyCoder](https://github.com/abiroyCoder) (abiroykarmakar543@gmail.com)
+**Abiroy Karmakar** — [@abiroyCoder](https://github.com/abiroyCoder) (abiroykarmakar543@gmail.com)
 
 * [Project Demo Video](https://drive.google.com/file/d/1L9d4By26mWesU7RED2CIvGwVyAcwOqP9/view?usp=sharing)
 * [User Onboarding Feedback Form](https://forms.gle/yJzDcJX4QHxg8ekk9)
 * [Feedback Summary Spreadsheet](https://docs.google.com/spreadsheets/d/1gSD6FFL-9Fv1S7lyCvx6wO8a5b-sYt6HlrzLscWzwOk/edit?usp=sharing)
-* Built for the [RiseIn Stellar dApp Development Program](https://www.risein.com/) — Level 3
+
 
 ---
 
