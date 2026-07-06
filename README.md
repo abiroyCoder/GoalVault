@@ -239,3 +239,19 @@ VITE_NETWORK_PASSPHRASE=Test SDF Network ; September 2015
 * [User Onboarding Feedback Form](https://forms.gle/yJzDcJX4QHxg8ekk9)
 * [Feedback Summary Spreadsheet](https://docs.google.com/spreadsheets/d/1gSD6FFL-9Fv1S7lyCvx6wO8a5b-sYt6HlrzLscWzwOk/edit?usp=sharing)
 * Built for the [RiseIn Stellar dApp Development Program](https://www.risein.com/) — Level 3
+
+---
+
+## Screenshots
+
+### Application UI Overview
+![Landing Page](./subassets/ui1.png)
+![Dashboard Overview](./subassets/ui2.png)
+![Create Goal Form](./subassets/ui3.png)
+![Active Goals Grid](./subassets/ui4.png)
+
+### Mobile Responsive Design
+![Mobile App Shell](./subassets/mobui.png)
+
+### CI/CD Pipeline Build
+![CI Pipeline Action](./subassets/cicd.png)
