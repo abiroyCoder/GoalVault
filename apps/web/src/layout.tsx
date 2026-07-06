@@ -107,7 +107,7 @@ function TopNav() {
                   className="flex items-center gap-2 rounded-xl border border-border bg-white px-3 py-1.5 text-xs font-semibold text-fg hover:border-accent/30 transition-colors"
                 >
                   <span className="h-2 w-2 rounded-full bg-accent" />
-                  <span className="hidden sm:block font-mono">{truncateAddress(wallet.address)}</span>
+                  <span className="hidden sm:block font-mono">{truncateAddress(wallet.address || "")}</span>
                   <span className="font-semibold text-accent">{wallet.balance.toLocaleString()} XLM</span>
                   <ChevronDown className="h-3 w-3 text-muted" />
                 </button>
@@ -120,7 +120,7 @@ function TopNav() {
                   >
                     <div className="px-3 py-2 border-b border-border mb-1">
                       <p className="text-[10px] font-bold text-muted uppercase tracking-wider">Connected</p>
-                      <p className="text-xs font-mono text-fg mt-0.5 truncate">{truncateAddress(wallet.address)}</p>
+                      <p className="text-xs font-mono text-fg mt-0.5 truncate">{truncateAddress(wallet.address || "")}</p>
                     </div>
                     {[
                       { label: "Profile", icon: User, href: "/profile" },
