@@ -59,28 +59,28 @@ export function MonitoringProvider({ children }: MonitoringProviderProps) {
       fallback: ({ error, resetError }: { error: any; resetError: (() => void) | undefined }) =>
         React.createElement(
           "div",
-          { className: "min-h-screen flex items-center justify-center bg-black/95 text-white p-6" },
+          { className: "min-h-screen flex items-center justify-center bg-[#F4F1EA] text-[#1C1C1A] p-6" },
           React.createElement(
             "div",
-            { className: "max-w-md w-full rounded-2xl border border-rose-500/20 bg-neutral-900 p-6 text-center space-y-4 shadow-2xl" },
+            { className: "max-w-md w-full rounded-2xl border border-red-200 bg-[#FAF8F4] p-6 text-center space-y-4 shadow-soft" },
             React.createElement(
               "div",
-              { className: "h-12 w-12 rounded-full bg-rose-500/10 text-rose-500 flex items-center justify-center mx-auto text-xl" },
+              { className: "h-12 w-12 rounded-full bg-red-50 text-red-500 flex items-center justify-center mx-auto text-lg" },
               "⚠️"
             ),
             React.createElement(
               "h3",
-              { className: "text-lg font-bold text-rose-400" },
+              { className: "text-base font-bold text-fg" },
               "Application Error"
             ),
             React.createElement(
               "p",
-              { className: "text-xs text-neutral-400" },
-              "A critical runtime error occurred. The application context has been captured."
+              { className: "text-xs text-muted" },
+              "A critical runtime exception occurred. The incident context has been recorded."
             ),
             React.createElement(
               "pre",
-              { className: "text-[10px] font-mono bg-black/40 border border-neutral-800 p-3 rounded-xl overflow-auto text-left max-h-32 text-rose-300" },
+              { className: "text-[10px] font-mono bg-stone-50 border border-border p-3 rounded-xl overflow-auto text-left max-h-32 text-red-600" },
               error?.message || "Unknown rendering exception"
             ),
             React.createElement(
@@ -90,7 +90,7 @@ export function MonitoringProvider({ children }: MonitoringProviderProps) {
                   if (resetError) resetError();
                   window.location.reload();
                 },
-                className: "text-xs font-semibold px-4 py-2 bg-rose-500 text-white rounded-xl hover:bg-rose-600 transition-colors duration-200"
+                className: "text-xs font-semibold px-4 py-2 bg-accent text-white rounded-xl hover:bg-[#155730] transition-colors"
               },
               "Reload Application"
             )
