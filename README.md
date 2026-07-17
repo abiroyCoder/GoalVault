@@ -67,8 +67,8 @@ GoalVault utilizes Stellar's network properties to establish cost-efficient acco
 | **Live dApp** | [goal-vault-stellar.netlify.app](https://goal-vault-stellar.netlify.app/) |
 | **Demo Video** | [Google Drive — Walkthrough Recording](https://drive.google.com/file/d/1L9d4By26mWesU7RED2CIvGwVyAcwOqP9/view?usp=sharing) |
 | **GitHub Repo** | [abiroyCoder/GoalVault](https://github.com/abiroyCoder/GoalVault) |
-| **User Feedback Form** | [GoalVault Feedback — Google Forms](https://forms.gle/yJzDcJX4QHxg8ekk9) |
-| **Onboarded Users & Wallet Interactions** | [Responses Spreadsheet — Google Sheets](https://docs.google.com/spreadsheets/d/1gSD6FFL-9Fv1S7lyCvx6wO8a5b-sYt6HlrzLscWzwOk/edit?usp=sharing) |
+| **User Feedback Form** | [GoalVault Feedback — Google Forms](https://forms.gle/n4uT7kAyA6MYS9Rk8) |
+| **Onboarded Users & Wallet Interactions** | [Responses Spreadsheet — Google Sheets](https://docs.google.com/spreadsheets/d/1Xi3sMOeDPk3C-BnbGnBQyf_dAXoPrq0GjEu6M26-Llw/edit?usp=sharing) |
 
 ---
 
@@ -108,8 +108,8 @@ As part of the Level 4 production MVP requirements, real users validated the esc
 
 | Resource | Link |
 |----------|------|
-| **Feedback Form** | [Submit Feedback](https://forms.gle/yJzDcJX4QHxg8ekk9) |
-| **User Responses & Wallet Proof** | [View Spreadsheet](https://docs.google.com/spreadsheets/d/1gSD6FFL-9Fv1S7lyCvx6wO8a5b-sYt6HlrzLscWzwOk/edit?usp=sharing) |
+| **Feedback Form** | [Submit Feedback](https://forms.gle/Wz8BL9Ra2ZyFEwSSA) |
+| **User Responses & Wallet Proof** | [View Spreadsheet](https://docs.google.com/spreadsheets/d/1Xi3sMOeDPk3C-BnbGnBQyf_dAXoPrq0GjEu6M26-Llw/edit?usp=sharing) |
 
 ---
 
@@ -326,11 +326,5 @@ npm run dev
 ## Author
 
 **Abiroy Karmakar** — [@abiroyCoder](https://github.com/abiroyCoder) (abiroykarmakar543@gmail.com)
-
-* [Project Demo Video](https://drive.google.com/file/d/1L9d4By26mWesU7RED2CIvGwVyAcwOqP9/view?usp=sharing)
-* [User Onboarding Feedback Form](https://forms.gle/yJzDcJX4QHxg8ekk9)
-* [Feedback Summary Spreadsheet](https://docs.google.com/spreadsheets/d/1gSD6FFL-9Fv1S7lyCvx6wO8a5b-sYt6HlrzLscWzwOk/edit?usp=sharing)
-
-
 ---
 
