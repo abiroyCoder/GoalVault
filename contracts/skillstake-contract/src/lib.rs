@@ -19,6 +19,9 @@ pub enum DataKey {
     Goal(u64),
     Proof(u64),
     Vote(u64, Address),
+    UserGoalCount(Address),
+    TotalGoals,
+    TotalStaked,
 }
 
 #[contracttype]
@@ -51,6 +54,16 @@ pub struct Proof {
     pub rejection_votes: u32,
 }
 
+/// Platform-wide statistics accessible as a public getter.
+#[contracttype]
+#[derive(Clone)]
+pub struct PlatformStats {
+    pub total_goals: u64,
+    pub total_staked: i128,
+    pub reward_vault_balance: i128,
+    pub verification_threshold: u32,
+}
+
 #[contract]
 pub struct GoalVaultContract;
 
@@ -61,11 +74,14 @@ impl GoalVaultContract {
         if env.storage().persistent().has(&DataKey::Admin) {
             panic!("GoalVault: already initialized");
         }
+        assert!(verification_threshold > 0, "GoalVault: threshold must be at least 1");
         env.storage().persistent().set(&DataKey::Admin, &admin);
         env.storage().persistent().set(&DataKey::VerificationThreshold, &verification_threshold);
         env.storage().persistent().set(&DataKey::Token, &token);
         env.storage().persistent().set(&DataKey::RewardVaultBalance, &0i128);
         env.storage().persistent().set(&DataKey::Counter, &0u64);
+        env.storage().persistent().set(&DataKey::TotalGoals, &0u64);
+        env.storage().persistent().set(&DataKey::TotalStaked, &0i128);
     }
 
     pub fn admin(env: Env) -> Address {
@@ -74,6 +90,28 @@ impl GoalVaultContract {
 
     pub fn token(env: Env) -> Address {
         env.storage().persistent().get(&DataKey::Token).expect("GoalVault: not initialized")
+    }
+
+    /// Returns aggregate platform statistics.
+    pub fn platform_stats(env: Env) -> PlatformStats {
+        PlatformStats {
+            total_goals: env.storage().persistent().get(&DataKey::TotalGoals).unwrap_or(0u64),
+            total_staked: env.storage().persistent().get(&DataKey::TotalStaked).unwrap_or(0i128),
+            reward_vault_balance: env
+                .storage()
+                .persistent()
+                .get(&DataKey::RewardVaultBalance)
+                .unwrap_or(0i128),
+            verification_threshold: Self::verification_threshold(&env),
+        }
+    }
+
+    /// Number of goals created by a specific user.
+    pub fn user_goal_count(env: Env, user: Address) -> u64 {
+        env.storage()
+            .persistent()
+            .get(&DataKey::UserGoalCount(user))
+            .unwrap_or(0u64)
     }
 
     /// Create a goal and lock XLM collateral into escrow.
@@ -88,6 +126,7 @@ impl GoalVaultContract {
     ) -> u64 {
         creator.require_auth();
         assert!(stake_amount > 0, "GoalVault: stake must be greater than zero");
+        assert!(end_time > start_time, "GoalVault: end_time must be after start_time");
 
         let token_address = env
             .storage()
@@ -110,6 +149,23 @@ impl GoalVaultContract {
             forfeited: false,
         };
         env.storage().persistent().set(&DataKey::Goal(id), &goal);
+
+        // Track per-user goal count
+        let prev_user_count: u64 = env
+            .storage()
+            .persistent()
+            .get(&DataKey::UserGoalCount(creator.clone()))
+            .unwrap_or(0u64);
+        env.storage()
+            .persistent()
+            .set(&DataKey::UserGoalCount(creator.clone()), &(prev_user_count + 1));
+
+        // Track platform totals
+        let prev_total: u64 = env.storage().persistent().get(&DataKey::TotalGoals).unwrap_or(0u64);
+        env.storage().persistent().set(&DataKey::TotalGoals, &(prev_total + 1));
+        let prev_staked: i128 = env.storage().persistent().get(&DataKey::TotalStaked).unwrap_or(0i128);
+        env.storage().persistent().set(&DataKey::TotalStaked, &(prev_staked + stake_amount));
+
         env.events().publish(("goal_created", id), creator);
         id
     }
