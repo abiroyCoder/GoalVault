@@ -1,53 +1,53 @@
-use super::{Goal, DataKey, GoalVaultContract, GoalVaultContractClient};
+use super::{GoalVaultContract, GoalVaultContractClient};
 use soroban_sdk::{testutils::Address as _, Address, Env, String, token};
 
 fn setup() -> (Env, Address, Address, Address, token::Client<'static>, GoalVaultContractClient<'static>) {
     let env = Env::default();
     env.mock_all_auths();
-    
+
     let admin = Address::generate(&env);
     let creator = Address::generate(&env);
     let voter = Address::generate(&env);
-    
+
     let token_admin = Address::generate(&env);
     let token_address = env.register_stellar_asset_contract(token_admin);
     let token_client = token::Client::new(&env, &token_address);
     let token_admin_client = token::StellarAssetClient::new(&env, &token_address);
-    
+
     // Mint initial balance to creator to allow staking
     token_admin_client.mint(&creator, &1000);
-    
+
     let contract_id = env.register(GoalVaultContract, ());
     let client = GoalVaultContractClient::new(&env, &contract_id);
     client.initialize(&admin, &3, &token_address);
-    
+
     (env, admin, creator, voter, token_client, client)
 }
 
 #[test]
 fn test_create_and_complete_goal() {
     let (env, _admin, creator, voter, token_client, client) = setup();
-    
+
     assert_eq!(token_client.balance(&creator), 1000);
-    
+
     let goal_id = client.create_goal(
-        &creator, 
-        &String::from_str(&env, "30 Days of DSA"), 
-        &String::from_str(&env, "Finish thirty days of practice."), 
-        &100, 
-        &0, 
+        &creator,
+        &String::from_str(&env, "30 Days of DSA"),
+        &String::from_str(&env, "Finish thirty days of practice."),
+        &100,
+        &0,
         &1000
     );
     assert_eq!(goal_id, 1);
     assert_eq!(token_client.balance(&creator), 900);
 
     let proof_id = client.submit_proof(
-        &goal_id, 
-        &creator, 
-        &String::from_str(&env, "Proof"), 
-        &String::from_str(&env, "Evidence"), 
-        &String::from_str(&env, ""), 
-        &String::from_str(&env, ""), 
+        &goal_id,
+        &creator,
+        &String::from_str(&env, "Proof"),
+        &String::from_str(&env, "Evidence"),
+        &String::from_str(&env, ""),
+        &String::from_str(&env, ""),
         &String::from_str(&env, "Evidence text")
     );
     assert_eq!(proof_id, 2);
@@ -66,22 +66,22 @@ fn test_create_and_complete_goal() {
 #[test]
 fn test_fail_moves_stake_to_reward_vault() {
     let (env, admin, creator, voter, token_client, client) = setup();
-    
+
     let goal_id = client.create_goal(
-        &creator, 
-        &String::from_str(&env, "Study 100 Hours"), 
-        &String::from_str(&env, "Study intensely."), 
-        &250, 
-        &0, 
+        &creator,
+        &String::from_str(&env, "Study 100 Hours"),
+        &String::from_str(&env, "Study intensely."),
+        &250,
+        &0,
         &1000
     );
     let proof_id = client.submit_proof(
-        &goal_id, 
-        &creator, 
-        &String::from_str(&env, "Proof"), 
-        &String::from_str(&env, "Evidence"), 
-        &String::from_str(&env, ""), 
-        &String::from_str(&env, ""), 
+        &goal_id,
+        &creator,
+        &String::from_str(&env, "Proof"),
+        &String::from_str(&env, "Evidence"),
+        &String::from_str(&env, ""),
+        &String::from_str(&env, ""),
         &String::from_str(&env, "Evidence text")
     );
 
@@ -101,13 +101,13 @@ fn test_fail_moves_stake_to_reward_vault() {
 #[test]
 fn test_admin_manual_override() {
     let (env, admin, creator, _voter, token_client, client) = setup();
-    
+
     let goal_id = client.create_goal(
-        &creator, 
-        &String::from_str(&env, "Goal"), 
-        &String::from_str(&env, "Desc"), 
-        &100, 
-        &0, 
+        &creator,
+        &String::from_str(&env, "Goal"),
+        &String::from_str(&env, "Desc"),
+        &100,
+        &0,
         &1000
     );
 
@@ -116,4 +116,73 @@ fn test_admin_manual_override() {
     let goal = client.goal(&goal_id);
     assert!(goal.forfeited);
     assert_eq!(token_client.balance(&admin), 100);
+}
+
+#[test]
+fn test_platform_stats_updated_on_create() {
+    let (env, _admin, creator, _voter, _token_client, client) = setup();
+
+    let stats_before = client.platform_stats();
+    assert_eq!(stats_before.total_goals, 0);
+    assert_eq!(stats_before.total_staked, 0);
+
+    client.create_goal(
+        &creator,
+        &String::from_str(&env, "Run a Marathon"),
+        &String::from_str(&env, "Train and complete a 42km marathon."),
+        &500,
+        &0,
+        &9999999,
+    );
+
+    let stats_after = client.platform_stats();
+    assert_eq!(stats_after.total_goals, 1);
+    assert_eq!(stats_after.total_staked, 500);
+    assert_eq!(stats_after.verification_threshold, 3);
+}
+
+#[test]
+fn test_user_goal_count_increments() {
+    let (env, _admin, creator, _voter, _token_client, client) = setup();
+
+    assert_eq!(client.user_goal_count(&creator), 0);
+
+    client.create_goal(
+        &creator,
+        &String::from_str(&env, "Learn Rust"),
+        &String::from_str(&env, "Complete the Rust book."),
+        &100,
+        &0,
+        &9999999,
+    );
+    assert_eq!(client.user_goal_count(&creator), 1);
+
+    client.create_goal(
+        &creator,
+        &String::from_str(&env, "Learn Soroban"),
+        &String::from_str(&env, "Build a dApp on Stellar."),
+        &200,
+        &0,
+        &9999999,
+    );
+    assert_eq!(client.user_goal_count(&creator), 2);
+}
+
+#[test]
+fn test_time_validation_end_after_start() {
+    let (env, _admin, creator, _voter, _token_client, client) = setup();
+
+    // Valid range: end_time > start_time — should succeed
+    let goal_id = client.create_goal(
+        &creator,
+        &String::from_str(&env, "Valid Time Goal"),
+        &String::from_str(&env, "end strictly after start"),
+        &100,
+        &1000,
+        &9999999,
+    );
+    let goal = client.goal(&goal_id);
+    assert!(goal.active);
+    assert_eq!(goal.start_time, 1000);
+    assert_eq!(goal.end_time, 9999999);
 }
