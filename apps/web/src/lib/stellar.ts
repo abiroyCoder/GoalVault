@@ -74,12 +74,12 @@ export async function submitTransactionXdr(xdr: string) {
     throw new Error((sendResponse as any).errorResultXdr || "Soroban RPC Error");
   }
   
-  // Poll for result
+  // Poll for result with a hard upper bound and defensive status guard
   let status: string = sendResponse.status;
   let attempts = 0;
   let txResult: any = null;
-  
-  while (status === "PENDING" && attempts < 10) {
+
+  while (attempts < 10) {
     await new Promise((resolve) => setTimeout(resolve, 2000));
     const getResponse = await sorobanServer.getTransaction(sendResponse.hash);
     status = getResponse.status;
@@ -88,10 +88,13 @@ export async function submitTransactionXdr(xdr: string) {
       break;
     } else if (getResponse.status === "FAILED") {
       throw new Error("Transaction execution failed: " + (getResponse as any).errorResultXdr);
+    } else if (getResponse.status !== "NOT_FOUND") {
+      // Unexpected status — bail out safely instead of spinning forever
+      break;
     }
     attempts++;
   }
-  
+
   return {
     status: status === "SUCCESS" ? "success" : "pending",
     txHash: sendResponse.hash,
