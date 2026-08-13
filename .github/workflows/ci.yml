@@ -6,7 +6,38 @@ on:
   pull_request:
 
 jobs:
-  build-and-test:
+  contract-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Rust toolchain
+        uses: actions-rust-lang/setup-rust-toolchain@v1
+        with:
+          toolchain: stable
+          target: wasm32-unknown-unknown
+
+      - name: Cache cargo registry
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            contracts/skillstake-contract/target
+          key: ${{ runner.os }}-cargo-${{ hashFiles('contracts/skillstake-contract/Cargo.lock') }}
+          restore-keys: ${{ runner.os }}-cargo-
+
+      - name: Build contract
+        run: cargo build
+        working-directory: contracts/skillstake-contract
+
+      - name: Run contract tests
+        run: cargo test --lib
+        working-directory: contracts/skillstake-contract
+
+  frontend-test:
     runs-on: ubuntu-latest
 
     steps:
