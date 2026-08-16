@@ -4,7 +4,7 @@ A Decentralized Escrow Platform for Personal Accountability
 
 Trustless milestone goals secured by Stellar Soroban smart contracts
 
-[Live Demo](https://goal-vault-stellar.netlify.app/)
+[Testnet Demo](https://goal-vault-stellar.netlify.app/)
 [GitHub](https://github.com/abiroyCoder/GoalVault)
 [Network](https://stellar.expert/explorer/testnet)
 [Built for RiseIn](https://www.risein.com/)
@@ -60,15 +60,14 @@ GoalVault utilizes Stellar's network properties to establish cost-efficient acco
 
 ---
 
-## Live Deployment
+## Deployment & Testing Resources
 
 | Resource | Link |
 |----------|------|
-| **Live dApp** | [goal-vault-stellar.netlify.app](https://goal-vault-stellar.netlify.app/) |
+| **Testnet dApp** | [goal-vault-stellar.netlify.app](https://goal-vault-stellar.netlify.app/) |
 | **Demo Video** | [Google Drive — Walkthrough Recording](https://drive.google.com/file/d/1L9d4By26mWesU7RED2CIvGwVyAcwOqP9/view?usp=sharing) |
 | **GitHub Repo** | [abiroyCoder/GoalVault](https://github.com/abiroyCoder/GoalVault) |
 | **User Feedback Form** | [GoalVault Feedback — Google Forms](https://forms.gle/n4uT7kAyA6MYS9Rk8) |
-| **Onboarded Users & Wallet Interactions** | [Responses Spreadsheet — Google Sheets](https://docs.google.com/spreadsheets/d/1Xi3sMOeDPk3C-BnbGnBQyf_dAXoPrq0GjEu6M26-Llw/edit?usp=sharing) |
 
 ---
 
@@ -90,11 +89,11 @@ All contracts are deployed on the **Stellar Testnet** using the `abiroyCoder` de
 
 ---
 
-## User Onboarding & Feedback
+## User Onboarding & Feedback Preparation (Level 4)
 
-As part of the Level 4 production MVP requirements, real users validated the escrow lifecycle on the Stellar Testnet.
+GoalVault is fully prepped for Level 4 production MVP testing. The application includes a complete feedback and testing pipeline prepared for initial user onboarding.
 
-**Onboarding Flow:**
+**Planned Onboarding Flow:**
 
 ```
 1. User installs Freighter Wallet and funds account via Friendbot
@@ -103,13 +102,13 @@ As part of the Level 4 production MVP requirements, real users validated the esc
 4. Community verifiers audit the submitted proof
 5. Verifiers vote approve/reject on-chain
 6. Approved → Escrow returns locked XLM to staker; Forfeited → Funds route to Reward Vault
-7. Users submit feedback via the feedback form
+7. Users submit feedback via the structured feedback form
 ```
 
 | Resource | Link |
 |----------|------|
 | **Feedback Form** | [Submit Feedback](https://forms.gle/Wz8BL9Ra2ZyFEwSSA) |
-| **User Responses & Wallet Proof** | [View Spreadsheet](https://docs.google.com/spreadsheets/d/1Xi3sMOeDPk3C-BnbGnBQyf_dAXoPrq0GjEu6M26-Llw/edit?usp=sharing) |
+| **Responses Tracker** | [View Spreadsheet](https://docs.google.com/spreadsheets/d/1Xi3sMOeDPk3C-BnbGnBQyf_dAXoPrq0GjEu6M26-Llw/edit?usp=sharing) |
 
 ---
 
@@ -184,18 +183,18 @@ The following security updates and frontend enhancements were implemented for pr
 | Update | Description |
 |-----|----------|
 | **Double-Initialization Guard** | Prevents contract re-configuration once deployed |
-| **Self-Voting Protection** | Restricts goal creators and submitters from voting on their own proof |
+| **Time & State Guards** | Strict validation ensuring end_time > start_time + threshold checks |
 | **Escrow Flow Safety** | Stake transfers are handled atomically alongside goal state changes |
-| **Admin Controls** | Secure fallback routines allow manual overrides for disputes |
+| **Platform Stats Tracker** | On-chain mapping for user goal counts and global platform metrics |
 
 ### Frontend Production Quality
 
 | Update | Description |
 |-----|----------|
-| **Typescript Null-Safety** | Resolved compiler argument type mismatches in layout rendering |
-| **Global Error Boundary** | Clean fallback screens to capture runtime exceptions without application crashes |
-| **Sentry Monitoring** | Styled error states to match the sand/cream color theme variables |
-| **Netlify Routing** | Implemented public fallback rules to support single-page browser reload paths |
+| **Analytics Dashboard** | Recharts-based KPI tracking (Success rate, Goal volume, Vault balance) |
+| **Status Badges** | Reactive tier resolution (Novice → Legend) based on on-chain goal counts |
+| **Hardened RPC Polling** | Fallback limits on transaction polling loops to prevent infinite spins |
+| **CI/CD Type Safety** | 21 passing Vitest assertions and strict TS compiler enforcement |
 
 ---
 
@@ -249,9 +248,9 @@ GoalVault/
 
 | Suite | Tests | Status |
 |-------|-------|--------|
-| Frontend (Vitest) | 6 tests | Passed |
-| Smart Contract (Rust) | 3 tests | Passed |
-| **Total** | **9 tests** | **All Passed** |
+| Frontend (Vitest) | 21 tests | Passed |
+| Smart Contract (Rust) | 6 tests | Passed |
+| **Total** | **27 tests** | **All Passed** |
 
 ```bash
 # Execute contract tests
@@ -272,13 +271,12 @@ Trigger event (Push/PR)
    │
    ├── Contract Validation
    │     ├── Build Cargo workspace
-   │     └── Execute Rust tests (3 tests)
+   │     └── Execute Rust tests (6 tests)
    │
    └── Frontend Validation
          ├── npm install
          ├── Typecheck check (tsc --noEmit)
-         ├── Run Linter
-         ├── Run frontend unit tests (6 tests)
+         ├── Run frontend unit tests (21 tests)
          └── Production build check (vite build)
 ```
 
@@ -310,12 +308,11 @@ npm run dev
 - React web UI with wallet client integrations
 - On-chain goal lifecycle and event logs
 
-### Level 4 (Complete)
-- Clean, minimal sand/cream design system theme
-- Typecheck safety, error boundaries, and Netlify routing fallbacks
-- Google Feedback form and responses spreadsheet setup
-- GitHub Actions CI/CD workflow configuration
-- 3 passing Rust unit tests and 6 passing Vitest UI tests
+### Level 4 (Ready)
+- Advanced Analytics Dashboard and Status Badges
+- Hardened Soroban escrow contract with time & state validation
+- CI/CD workflow with parallel Rust (6 tests) and Node (21 tests) jobs
+- Structured feedback pipeline configured for 10-user testing sprint
 
 ### Level 5 (Planned)
 - Multinetwork provider configuration
