@@ -33,7 +33,7 @@ describe("getBadge tier resolution", () => {
   });
 
   it("BADGE_TIERS last entry is always Novice as ultimate fallback", () => {
-    const last = BADGE_TIERS[BADGE_TIERS.length - 1];
+    const last = BADGE_TIERS[BADGE_TIERS.length - 1]!;
     expect(last.label).toBe("Novice");
     expect(last.minGoals).toBe(0);
   });
