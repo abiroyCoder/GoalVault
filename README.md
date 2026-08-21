@@ -79,13 +79,13 @@ All contracts are deployed on the **Stellar Testnet** using the `abiroyCoder` de
 
 | Contract | Address |
 |----------|---------|
-| **GoalVault Smart Contract** | `CDUVOWAI5HYXXC3XCXS6NMWSCXL7WHHIEHYRHME2E4DWYUPRSJ5JBEW5` |
+| **GoalVault Smart Contract** | `CCPLIPZ4EVQKQKMBXMJJHMW5KKMAUCSQYVDPIBAYFPLW4ZRCLN7TVHKN` |
 
 ### On-Chain Deployment Transactions
 
 | Action | Transaction Hash |
 |--------|-----------------|
-| **GoalVault Contract — Deploy & Initialize** | [0x012b34c5d6e7f8a9b0c1d2e3f4a5b6c7d0e9f0a1b2c3d4e5f6a7b8c9d0e1f1af](https://stellar.expert/explorer/testnet/tx/0x012b34c5d6e7f8a9b0c1d2e3f4a5b6c7d0e9f0a1b2c3d4e5f6a7b8c9d0e1f1af) |
+| **GoalVault Contract — Deploy & Initialize** | [e1b48a7418e53c007bcd3dc7d6eb9807b2a4eaecd79bf913bbb173d4ec2cdf13](https://stellar.expert/explorer/testnet/tx/e1b48a7418e53c007bcd3dc7d6eb9807b2a4eaecd79bf913bbb173d4ec2cdf13) |
 
 ---
 
@@ -141,7 +141,7 @@ GoalVault consists of a Soroban smart contract managing goal escrows and verific
 
 ## Smart Contracts
 
-### GoalVault Contract (`CDUVOWAI5HYXXC3XCXS6NMWSCXL7WHHIEHYRHME2E4DWYUPRSJ5JBEW5`)
+### GoalVault Contract (`CCPLIPZ4EVQKQKMBXMJJHMW5KKMAUCSQYVDPIBAYFPLW4ZRCLN7TVHKN`)
 
 Manages staker escrows and verification lifecycles.
 
