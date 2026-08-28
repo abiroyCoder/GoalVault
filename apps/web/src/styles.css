@@ -2,21 +2,21 @@
 @tailwind components;
 @tailwind utilities;
 
-/* ─── GoalVault Design System ───────────────────────────────────────────────
-   Light-only. Editorial. Warm off-white + forest green accent.
-   No glassmorphism, no blue, no gradients.
+/* ─── GoalVault Design System v2 ─────────────────────────────────────────────
+   Dark charcoal base. Warm amber/gold accent. No blue, no indigo, no violet.
    ─────────────────────────────────────────────────────────────────────────── */
 
 :root {
-  --bg:        244 241 234;    /* warm soft sand / cream background */
-  --fg:        28 28 26;       /* charcoal ink */
-  --muted:     115 110 100;    /* warm stone gray */
-  --card:      250 248 244;    /* slightly lighter cream for card containers */
-  --border:    220 215 202;    /* warm sand border */
-  --accent:    26 107 60;      /* forest green */
-  --accent-fg: 255 255 255;    /* white on green */
-  --danger:    185 28 28;      /* muted red */
-  --success:   21 128 61;      /* green success */
+  --bg:           15 14 13;      /* #0F0E0D — near-black charcoal */
+  --surface:      26 25 22;      /* #1A1916 — card surfaces */
+  --surface-2:    35 33 24;      /* #232118 — elevated / hover */
+  --border:       46 44 40;      /* #2E2C28 — hairline borders */
+  --fg:           242 237 222;   /* #F2EDDE — warm white text */
+  --muted:        138 132 117;   /* #8A8475 — secondary text */
+  --amber:        212 135 42;    /* #D4872A — primary accent */
+  --amber-light:  240 169 60;    /* #F0A93C — hover amber */
+  --success:      61 158 106;    /* #3D9E6A — positive/green */
+  --danger:       192 57 43;     /* #C0392B — error/danger */
 }
 
 html,
@@ -29,8 +29,7 @@ body {
   margin: 0;
   background: rgb(var(--bg));
   color: rgb(var(--fg));
-  font-family: "DM Sans", system-ui, sans-serif;
-  transition: background-color 200ms ease, color 200ms ease;
+  font-family: "Inter", system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -40,58 +39,69 @@ body {
 }
 
 ::selection {
-  background: rgb(var(--accent));
-  color: rgb(var(--accent-fg));
-}
-
-/* ── Page shell: clean warm bg, no noise, no gradient blobs ── */
-.page-shell {
-  background: rgb(var(--bg));
-}
-
-/* ── Sidebar: solid white with right hairline border ── */
-.sidebar-panel {
-  background: rgb(var(--card));
-  border-right: 1px solid rgb(var(--border));
-}
-
-/* ── Cards: clean white, subtle shadow, no blur ── */
-.card-base {
-  background: rgb(var(--card));
-  border: 1px solid rgb(var(--border));
-  border-radius: 0.75rem;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
-  transition: box-shadow 180ms ease, border-color 180ms ease;
-}
-
-.card-hover:hover {
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.10);
-  border-color: rgb(var(--accent) / 0.3);
+  background: rgb(var(--amber));
+  color: rgb(15 14 13);
 }
 
 /* ── Typography ── */
 .heading {
-  font-family: "DM Serif Display", Georgia, serif;
-  font-weight: 400;
-  letter-spacing: -0.01em;
+  font-family: "Syne", system-ui, sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.display {
+  font-family: "Syne", system-ui, sans-serif;
+  font-weight: 800;
+  letter-spacing: -0.03em;
 }
 
 .text-label {
-  font-family: "DM Sans", system-ui, sans-serif;
+  font-family: "Inter", system-ui, sans-serif;
   font-size: 0.65rem;
   font-weight: 700;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
   color: rgb(var(--muted));
 }
 
+/* ── Page shell ── */
+.page-shell {
+  background: rgb(var(--bg));
+}
+
+/* ── Sidebar ── */
+.sidebar-panel {
+  background: rgb(var(--surface));
+  border-right: 1px solid rgb(var(--border));
+}
+
+/* ── Cards ── */
+.card-base {
+  background: rgb(var(--surface));
+  border: 1px solid rgb(var(--border));
+  border-radius: 0.875rem;
+  transition: box-shadow 180ms ease, border-color 180ms ease, transform 180ms ease;
+}
+
+.card-hover:hover {
+  border-color: rgb(var(--amber) / 0.35);
+  box-shadow: 0 0 0 1px rgb(var(--amber) / 0.1), 0 8px 32px rgb(0 0 0 / 0.4);
+  transform: translateY(-1px);
+}
+
+/* ── Amber accent glow ── */
+.glow-amber {
+  box-shadow: 0 0 24px rgb(var(--amber) / 0.18), 0 0 8px rgb(var(--amber) / 0.12);
+}
+
+.glow-amber-sm {
+  box-shadow: 0 0 12px rgb(var(--amber) / 0.2);
+}
+
 /* ── Scrollbar ── */
-.safe-scrollbar::-webkit-scrollbar {
-  width: 6px;
-}
-.safe-scrollbar::-webkit-scrollbar-track {
-  background: transparent;
-}
+.safe-scrollbar::-webkit-scrollbar { width: 5px; }
+.safe-scrollbar::-webkit-scrollbar-track { background: transparent; }
 .safe-scrollbar::-webkit-scrollbar-thumb {
   background: rgb(var(--border));
   border-radius: 9999px;
@@ -104,26 +114,50 @@ body {
   height: 6px;
   border-radius: 50%;
   background: rgb(var(--success));
+  animation: pulse-live 2s ease-in-out infinite;
 }
 
-/* ── Stat accent border ── */
+@keyframes pulse-live {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.4; }
+}
+
+/* ── Amber pulse animation ── */
+@keyframes pulse-amber {
+  0%, 100% { box-shadow: 0 0 0 0 rgb(var(--amber) / 0.4); }
+  50%       { box-shadow: 0 0 0 6px rgb(var(--amber) / 0); }
+}
+
+.pulse-amber {
+  animation: pulse-amber 2s ease-in-out infinite;
+}
+
+/* ── Stat card accent ── */
 .stat-card-accent {
-  border-left: 3px solid rgb(var(--accent));
+  border-left: 3px solid rgb(var(--amber));
 }
 
-/* ── Remove legacy glass / noise-grid ── */
+/* ── Remove legacy glass / noise ── */
 .glass,
 .noise-grid {
-  background: rgb(var(--card)) !important;
+  background: rgb(var(--surface)) !important;
   backdrop-filter: none !important;
   -webkit-backdrop-filter: none !important;
 }
 
 /* ── Shadow tokens ── */
 .shadow-card {
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.04);
+  box-shadow: 0 1px 3px rgb(0 0 0 / 0.3), 0 1px 2px rgb(0 0 0 / 0.2);
 }
 
 .shadow-premium {
-  box-shadow: 0 2px 8px rgba(26, 107, 60, 0.18);
+  box-shadow: 0 4px 24px rgb(var(--amber) / 0.15);
+}
+
+/* ── Amber gradient text ── */
+.text-amber-gradient {
+  background: linear-gradient(135deg, rgb(var(--amber-light)), rgb(var(--amber)));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
