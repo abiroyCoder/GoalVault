@@ -1,7 +1,7 @@
 import { useDappStore } from "../lib/store";
 import { useTheme } from "../lib/theme";
-import { Card, Button, Badge } from "../components/ui";
-import { Settings, RefreshCw, Sun, Moon, Database } from "lucide-react";
+import { Card, Button } from "../components/ui";
+import { Settings, RefreshCw, Database } from "lucide-react";
 import { toast } from "sonner";
 
 export function SettingsPage() {
@@ -16,33 +16,27 @@ export function SettingsPage() {
   const handleClearCache = () => {
     localStorage.removeItem("skillstake_dapp_storage");
     toast.success("Local storage cache purged. Re-initializing app...");
-    setTimeout(() => {
-      window.location.reload();
-    }, 1000);
+    setTimeout(() => { window.location.reload(); }, 1000);
   };
 
   return (
     <div className="space-y-8 max-w-3xl mx-auto">
-      {/* Header */}
-      <div className="border-b border-border/40 pb-5">
-        <h2 className="text-2xl font-bold tracking-tight text-accent dark:text-white flex items-center gap-2">
-          <Settings className="h-6 w-6 text-accent dark:text-white" />
-          Settings Panel
-        </h2>
-        <p className="text-sm text-muted">Adjust system aesthetics and reset onboarding walkthrough guides.</p>
+      <div className="border-b border-[#2E2C28] pb-5">
+        <h1 style={{ fontFamily: "'Syne', sans-serif", fontWeight: 800, letterSpacing: "-0.02em" }}
+          className="text-2xl text-[#F2EDDE] flex items-center gap-2">
+          <Settings className="h-6 w-6 text-[#D4872A]" />
+          Settings
+        </h1>
+        <p className="text-sm text-[#8A8475] mt-1">Adjust system preferences and reset onboarding guides.</p>
       </div>
 
-      <div className="space-y-6" id="tour-step-settings">
-        {/* Theme Settings */}
-        <Card className="p-6 border-border/80 space-y-4">
+      <div className="space-y-5" id="tour-step-settings">
+        {/* Theme */}
+        <Card className="p-6 border-[#2E2C28] bg-[#1A1916] space-y-4">
           <div>
-            <h3 className="text-base font-bold text-accent dark:text-white flex items-center gap-2">
-              <Sun className="h-4.5 w-4.5 text-muted" />
-              Theme Appearance
-            </h3>
-            <p className="text-xs text-muted">Aesthetic control flags of the application dashboard.</p>
+            <h3 className="text-sm font-bold text-[#F2EDDE]">Theme Appearance</h3>
+            <p className="text-xs text-[#8A8475]">Aesthetic control flags of the application dashboard.</p>
           </div>
-
           <div className="grid gap-3 grid-cols-2 pt-2">
             {(["light", "dark"] as const).map((mode) => (
               <button
@@ -50,8 +44,8 @@ export function SettingsPage() {
                 onClick={() => setThemeMode(mode)}
                 className={`rounded-xl border px-3 py-2.5 text-xs font-bold capitalize transition-all duration-200 ${
                   themeMode === mode
-                    ? "border-accent bg-accent/5 text-accent dark:text-white"
-                    : "border-border hover:border-accent/40 bg-transparent text-muted"
+                    ? "border-[#D4872A]/40 bg-[#D4872A]/12 text-[#D4872A]"
+                    : "border-[#2E2C28] text-[#8A8475] hover:border-[#D4872A]/30 hover:text-[#F2EDDE] hover:bg-[#232118]"
                 }`}
               >
                 {mode}
@@ -60,40 +54,34 @@ export function SettingsPage() {
           </div>
         </Card>
 
-        {/* System Settings */}
-        <Card className="p-6 border-border/80 space-y-6">
+        {/* Onboarding */}
+        <Card className="p-6 border-[#2E2C28] bg-[#1A1916] space-y-4">
           <div>
-            <h3 className="text-base font-bold text-accent dark:text-white flex items-center gap-2">
-              <RefreshCw className="h-4.5 w-4.5 text-muted" />
+            <h3 className="text-sm font-bold text-[#F2EDDE] flex items-center gap-2">
+              <RefreshCw className="h-4 w-4 text-[#8A8475]" />
               Onboarding Configuration
             </h3>
-            <p className="text-xs text-muted">Restart walkthrough guides and reset tutorial markers.</p>
+            <p className="text-xs text-[#8A8475]">Restart walkthrough guides and reset tutorial markers.</p>
           </div>
-
-          <div className="pt-2">
-            <Button onClick={handleResetTour} variant="secondary" className="w-full text-xs h-10 font-bold rounded-xl flex items-center justify-center gap-2">
-              <RefreshCw className="h-4 w-4" />
-              Reset Onboarding Tour
-            </Button>
-          </div>
+          <Button onClick={handleResetTour} variant="secondary" className="w-full text-xs h-10 font-bold rounded-xl">
+            <RefreshCw className="h-4 w-4" />
+            Reset Onboarding Tour
+          </Button>
         </Card>
 
-        {/* Database Clear */}
-        <Card className="p-6 border-border/80 space-y-6">
+        {/* Cache */}
+        <Card className="p-6 border-[#2E2C28] bg-[#1A1916] space-y-4">
           <div>
-            <h3 className="text-base font-bold text-accent dark:text-white flex items-center gap-2">
-              <Database className="h-4.5 w-4.5 text-muted" />
+            <h3 className="text-sm font-bold text-[#F2EDDE] flex items-center gap-2">
+              <Database className="h-4 w-4 text-[#8A8475]" />
               Developer Cache Options
             </h3>
-            <p className="text-xs text-muted">Purge cached mock logs, achievements badges, and stored telemetry.</p>
+            <p className="text-xs text-[#8A8475]">Purge cached mock logs, achievements badges, and stored telemetry.</p>
           </div>
-
-          <div className="pt-2">
-            <Button onClick={handleClearCache} variant="secondary" className="w-full text-rose-500 border-rose-500/20 hover:bg-rose-500/5 text-xs h-10 font-bold rounded-xl flex items-center justify-center gap-2">
-              <Database className="h-4 w-4" />
-              Purge Local Storage Cache
-            </Button>
-          </div>
+          <Button onClick={handleClearCache} variant="danger" className="w-full text-xs h-10 font-bold rounded-xl">
+            <Database className="h-4 w-4" />
+            Purge Local Storage Cache
+          </Button>
         </Card>
       </div>
     </div>

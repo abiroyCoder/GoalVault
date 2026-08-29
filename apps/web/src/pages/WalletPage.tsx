@@ -44,21 +44,23 @@ export function WalletPage() {
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between border-b border-border pb-4">
-        <h2 className="heading text-xl text-fg">Wallet settings</h2>
+      <div className="border-b border-[#2E2C28] pb-4">
+        <h1 style={{ fontFamily: "'Syne', sans-serif", fontWeight: 800, letterSpacing: "-0.02em" }}
+          className="text-2xl text-[#F2EDDE]">Wallet</h1>
+        <p className="text-xs text-[#8A8475] mt-1">Connect and manage your Stellar identity</p>
       </div>
 
       <div className="grid gap-5 grid-cols-1 md:grid-cols-[1.2fr_0.8fr]" id="tour-step-wallet">
         {/* Connection Panel */}
-        <Card className="p-5 space-y-4">
+        <Card className="p-5 space-y-4 border-[#2E2C28] bg-[#1A1916]">
           {wallet.connected && wallet.address ? (
             <div className="space-y-4">
-              <div className="rounded-xl border border-accent/20 bg-accent/5 px-3.5 py-3 flex items-center justify-between">
+              <div className="rounded-xl border border-[#D4872A]/25 bg-[#D4872A]/8 px-3.5 py-3 flex items-center justify-between">
                 <div className="flex items-center gap-2">
-                  <CheckCircle className="h-4 w-4 text-accent" />
-                  <span className="text-xs font-semibold text-accent">Active · {wallet.provider}</span>
+                  <CheckCircle className="h-4 w-4 text-[#3D9E6A]" />
+                  <span className="text-xs font-semibold text-[#3D9E6A]">Active · {wallet.provider}</span>
                 </div>
-                <Badge>Connected</Badge>
+                <Badge className="bg-[#3D9E6A]/10 border-[#3D9E6A]/25 text-[#3D9E6A]">Connected</Badge>
               </div>
 
               <div className="space-y-3">
@@ -67,39 +69,40 @@ export function WalletPage() {
                     type="text"
                     readOnly
                     value={wallet.address}
-                    className="w-full rounded-xl border border-border bg-stone-50 px-3 py-2 text-xs font-mono text-fg outline-none truncate"
+                    className="w-full rounded-xl border border-[#2E2C28] bg-[#0F0E0D] px-3 py-2 text-xs font-mono text-[#8A8475] outline-none truncate"
                   />
                   <Button onClick={handleCopy} variant="secondary" className="px-3">
                     <Copy className="h-3.5 w-3.5" />
                   </Button>
                 </div>
 
-                <div className="flex justify-between items-center text-xs border-b border-border pb-2.5">
-                  <span className="text-muted">Network</span>
-                  <span className="font-semibold text-fg capitalize">{wallet.network}</span>
+                <div className="flex justify-between items-center text-xs border-b border-[#2E2C28] pb-2.5">
+                  <span className="text-[#8A8475]">Network</span>
+                  <span className="font-semibold text-[#F2EDDE] capitalize">{wallet.network}</span>
                 </div>
                 <div className="flex justify-between items-center text-xs">
-                  <span className="text-muted">Smart escrow</span>
-                  <span className="font-semibold text-fg flex items-center gap-1">
-                    Soroban <Link2 className="h-3 w-3 text-muted" />
+                  <span className="text-[#8A8475]">Smart escrow</span>
+                  <span className="font-semibold text-[#F2EDDE] flex items-center gap-1">
+                    Soroban <Link2 className="h-3 w-3 text-[#8A8475]" />
                   </span>
                 </div>
               </div>
 
-              <Button onClick={wallet.disconnect} variant="secondary" className="w-full text-xs font-semibold text-red-600 border-red-200 hover:bg-red-50 py-2.5">
-                <LogOut className="h-3.5 w-3.5 mr-1.5" />
+              <Button onClick={wallet.disconnect} variant="danger" className="w-full text-xs font-semibold py-2.5">
+                <LogOut className="h-3.5 w-3.5" />
                 Disconnect
               </Button>
             </div>
           ) : (
-            <div className="space-y-3 py-1">
+            <div className="space-y-4 py-1">
+              <p className="text-xs text-[#8A8475]">Connect a wallet to interact with GoalVault smart contracts</p>
               <div className="grid gap-3 grid-cols-1 sm:grid-cols-2">
-                <Button onClick={handleConnectFreighter} disabled={connectingType !== null} className="h-11 text-xs font-semibold shadow-soft">
-                  {connectingType === "freighter" ? <Loader2 className="h-4 w-4 animate-spin" /> : <Wallet className="h-4 w-4 mr-1.5" />}
+                <Button onClick={handleConnectFreighter} disabled={connectingType !== null} className="h-11 text-xs font-bold">
+                  {connectingType === "freighter" ? <Loader2 className="h-4 w-4 animate-spin" /> : <Wallet className="h-4 w-4" />}
                   Freighter
                 </Button>
                 <Button onClick={handleConnectAlbedo} disabled={connectingType !== null} variant="secondary" className="h-11 text-xs font-semibold">
-                  {connectingType === "albedo" ? <Loader2 className="h-4 w-4 animate-spin" /> : <Wallet className="h-4 w-4 mr-1.5" />}
+                  {connectingType === "albedo" ? <Loader2 className="h-4 w-4 animate-spin" /> : <Wallet className="h-4 w-4" />}
                   Albedo
                 </Button>
               </div>
@@ -108,25 +111,26 @@ export function WalletPage() {
         </Card>
 
         {/* Balance Panel */}
-        <Card className="p-5 flex flex-col justify-between stat-card-accent">
-          <div>
-            <h3 className="text-sm font-semibold text-fg">XLM Balance</h3>
-          </div>
-          <div className="my-4 py-3 text-center border-y border-border">
-            <p className="text-3xl font-bold tracking-tight text-fg flex items-baseline justify-center gap-1.5">
+        <Card className="p-5 flex flex-col justify-between border-[#2E2C28] bg-[#1A1916] stat-card-accent relative overflow-hidden">
+          <div className="absolute -bottom-6 -right-6 w-28 h-28 rounded-full bg-[#D4872A]/6 blur-2xl pointer-events-none" />
+          <h3 className="text-sm font-semibold text-[#F2EDDE] relative">XLM Balance</h3>
+          <div className="my-4 py-4 text-center border-y border-[#2E2C28] relative">
+            <p className="text-[10px] font-bold uppercase tracking-widest text-[#8A8475] mb-2">Available</p>
+            <p style={{ fontFamily: "'Syne', sans-serif", fontWeight: 800, letterSpacing: "-0.02em" }}
+              className="text-4xl text-[#D4872A] flex items-baseline justify-center gap-1.5">
               {wallet.connected ? wallet.balance.toLocaleString() : "—"}
-              <span className="text-xs font-semibold text-muted">XLM</span>
+              <span className="text-sm font-semibold text-[#8A8475]">XLM</span>
             </p>
           </div>
-          <div className="text-xs text-muted">
+          <div className="text-xs text-[#8A8475] relative">
             {wallet.connected && (
               <a
                 href={`https://stellar.expert/explorer/testnet/account/${wallet.address}`}
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex items-center gap-1.5 text-accent hover:underline font-semibold"
+                className="inline-flex items-center gap-1.5 text-[#D4872A] hover:text-[#F0A93C] transition-colors font-semibold"
               >
-                Explorer <ExternalLink className="h-3 w-3" />
+                View on Explorer <ExternalLink className="h-3 w-3" />
               </a>
             )}
           </div>
